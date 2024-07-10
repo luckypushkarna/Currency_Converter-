@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="{% static 'converter/styles.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        .background-image {
+            height: 100vh;
+            background-image: url('https://i.postimg.cc/8cJ9mJNW/final.png');
+            font-family: Arial, sans-serif;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; /* Align items to the end of the container */
+        }
+        form {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin-top: 100px;
+            margin-bottom: -100px;
+            justify-content:space-evenly;
+       
+        }
+        input, select {
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0f3292;
+        }
+        
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+  
+        }
+        .convert{
+            height: 50px;
+            width: 100px;
+            border: 2px solid black;
+
+        }
+        .Result{
+            visibility:"hidden";
+        }
+    </style>
+    <script>  
+        function result(e){
+            e.preventDefault();
+            console.log("hello!");
+        const result = document.getElementsByClassName('Result')[0];
+        console.log(result);
+        result.src.visibility="visible";
+        }
+      
+        function reset() {
+            console.log("hello!");
+           const result = document.getElementsByClassName('Result')[0];
+           result.src.visibility="hidden";
+           }
+        
+      </script>
+</head>
+<body>
+    
+ 
+<div class="background-image">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">Amount:</label>
+                        <input type="number" id="amount" name="amount" step="0.01" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="from_currency" class="form-label">From:</label>
+                        <select id="from_currency" name="from_currency" class="form-select" required>
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="GBP">GBP</option>
+                            <option value="JPY">JPY</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="to_currency" class="form-label">To:</label>
+                        <select id="to_currency" name="to_currency" class="form-select" required>
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="GBP">GBP</option>
+                            <option value="JPY">JPY</option>
+                        </select>
+                    </div>
+                    <!-- <div class="convert"> -->
+                        
+                        <div class="mb-3 " >
+                            <label for="amount" class="form-label">Result:</label>
+                            
+                            <p class="Result"  >  {% if converted_amount %}
+                                {{ form.cleaned_data.amount }} {{ form.cleaned_data.from_currency }} = {{ converted_amount }} {{ form.cleaned_data.to_currency }}
+                                {% endif %}
+                            </p>
+                            
+                        </div>
+                    <!-- </div> -->
+                    <button  class="btn btn-warning">Convert</button>
+                
+                </form>
+                <br>
+                <br>
+                <br>
+                <!-- {% if converted_amount %}
+                    <div class="output">
+                        <h2>Conversion Result:</h2>
+                        <p>{{ form.cleaned_data.amount }} {{ form.cleaned_data.from_currency }} = {{ converted_amount }} {{ form.cleaned_data.to_currency }}</p>
+                    </div>
+                {% endif %} -->
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
